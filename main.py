@@ -3,6 +3,7 @@ from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from mangum import Mangum
 import random
 
 app = FastAPI()
@@ -74,7 +75,6 @@ async def reverse_name(name: str = None):
     if not re.match(r"^[A-Za-z]+$", name):
         raise HTTPException(status_code=400, detail="Name must contain only letters.")
 
-
     letter_count = len(name)
 
     # for slicing, and the `-1` inside the square brackets indicates the step value.In this case, `-1` means that it
@@ -82,3 +82,6 @@ async def reverse_name(name: str = None):
     reversed_name = name[::-1]
     response_data = {"letterCount": letter_count, "reversedName": reversed_name}
     return JSONResponse(content=response_data)
+
+
+handler = Mangum(app=app)
