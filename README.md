@@ -22,7 +22,7 @@
     uvicorn main:app --reload
    ```
 
-You can access the application at http://localhost:8000/. It provides the following endpoints:
+You can access the application at http://localhost:8000/ or the docs http://localhost:8000/docs. It provides the following endpoints:
 
 ````
 / - Renders the index.html template.
