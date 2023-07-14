@@ -1,3 +1,4 @@
+import os
 import re
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import JSONResponse
@@ -6,7 +7,11 @@ from fastapi.templating import Jinja2Templates
 from mangum import Mangum
 import random
 
-app = FastAPI()
+stage = 'staging'
+openapi_prefix = f"/{stage}"
+
+app = FastAPI(openapi_prefix=openapi_prefix)
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
@@ -44,7 +49,7 @@ python_json = [
 ]
 
 
-@app.get("/")
+@app.get("/index")
 async def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
@@ -84,4 +89,4 @@ async def reverse_name(name: str = None):
     return JSONResponse(content=response_data)
 
 
-handler = Mangum(app=app)
+lambda_handler = Mangum(app)
