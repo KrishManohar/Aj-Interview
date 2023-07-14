@@ -14,7 +14,7 @@
     pip install -r requirements.txt
    ```
 
-### Running the Application
+### Running the Application locally
 
 1. To run the FastAPI application locally, use the following command:
 
