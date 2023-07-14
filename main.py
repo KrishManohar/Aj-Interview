@@ -1,5 +1,4 @@
 import re
-
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -77,6 +76,9 @@ async def reverse_name(name: str = None):
 
 
     letter_count = len(name)
+
+    # for slicing, and the `-1` inside the square brackets indicates the step value.In this case, `-1` means that it
+    # will iterate the string in reverse order.
     reversed_name = name[::-1]
     response_data = {"letterCount": letter_count, "reversedName": reversed_name}
     return JSONResponse(content=response_data)
